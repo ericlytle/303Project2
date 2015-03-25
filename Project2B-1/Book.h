@@ -12,22 +12,16 @@ public:
 	Book();
 	Book(string name);
 	bool IsArchived();
-	Date CirculationStart();
-	Date CirculationStop();
 	string GetName();
-	void CirculationStart(Date date);
-	void CirculationStop(Date date);
 	void Archive();
 	void AddtoQueue(Employee* employee); //called by addEmployee in library
 	void PopulateQueue(list<Employee> employeeList); //only to be called by addBook in library
 	Employee* GetOwner();
-	void SetNewOwner(Employee* NewOwner);
+	void SetNewOwner();
 	Date GetPreviousPass(Date newPass);
 private:
 	Date _previousPass;
 	bool _isArchived;
-	Date _circulationStart;
-	Date _circulationStop;
 	EmployeeQueue _waitingForThisBook; //pointers
 	string _name;
 	Employee* _Owner;
@@ -36,17 +30,15 @@ private:
 Book::Book()
 {
 	_isArchived = false;
-	_circulationStart = Date(2100, 1, 1); 
-	_circulationStop = Date(2100, 1, 1);
+	_previousPass = Date(2100, 1, 1);
 	_name = "";
 }
 
 Book::Book(string name)
 {
 	_isArchived = false;
-	_circulationStart = Date(2100, 1, 1);
-	_circulationStop = Date(2100, 1, 1);
 	_name = name;
+	_previousPass = Date(2100, 1, 1);
 }
 
 
@@ -79,9 +71,12 @@ Employee* Book::GetOwner()
 	return _Owner;
 }
 
-void Book::SetNewOwner(Employee* NewOnwer)
+void Book::SetNewOwner()
 {
-	_Owner = _waitingForThisBook.Pop(); //returns top, then removes. 
+	if (!_waitingForThisBook.IsEmpty())
+		_Owner = _waitingForThisBook.Pop(); //returns top, then removes. 
+	else
+		Archive();
 }
 
 Date Book::GetPreviousPass(Date newPass)

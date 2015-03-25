@@ -21,7 +21,7 @@ public:
 	void AddtoQueue(Employee* employee); //called by addEmployee in library
 	void PopulateQueue(list<Employee> employeeList); //only to be called by addBook in library
 	Employee* GetOwner();
-	void SetNewOwner(Employee* NewOwner);
+	void SetNewOwner();
 	Date GetPreviousPass(Date newPass);
 private:
 	Date _previousPass;
@@ -79,7 +79,7 @@ Employee* Book::GetOwner()
 	return _Owner;
 }
 
-void Book::SetNewOwner(Employee* NewOnwer)
+void Book::SetNewOwner()
 {
 	_Owner = _waitingForThisBook.Pop(); //returns top, then removes. 
 }

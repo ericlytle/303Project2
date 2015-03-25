@@ -18,7 +18,9 @@ public:
 	void PopulateQueue(list<Employee>& employeeList); //only to be called by addBook in library
 	Employee* GetOwner();
 	void SetNewOwner();
+	void StartCiculation(Date date);
 	Date GetPreviousPass(Date newPass);
+	void updateWaitTimes(Date date);
 private:
 	Date _previousPass;
 	bool _isArchived;
@@ -91,4 +93,15 @@ Date Book::GetPreviousPass(Date newPass)
 string Book::GetName()
 {
 	return _name;
+}
+
+void Book::StartCiculation(Date date)
+{
+	_previousPass = date;
+	
+}
+
+void Book::updateWaitTimes(Date date)
+{
+	_waitingForThisBook.updateWaitTimes(_previousPass ,date);
 }

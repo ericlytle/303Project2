@@ -17,6 +17,7 @@ public:
 	void AddBook(string bookName);
 
 private:
+	void updateWaitTimes(Book book, Date date);
 	list<Employee> _employeeList;
 	list<Book> _bookListActive;
 	list<Book>  _bookListArchived;
@@ -40,9 +41,17 @@ void Library::AddEmployee(string employeeName)
 	
 }
 
-void CirculateBook(string bookName, Date date)
+void Library::CirculateBook(string bookName, Date date)
 {
-	;
+	list<Book>::iterator iter = _bookListActive.begin();
+	while (iter != _bookListActive.end())
+	{
+		if (iter->GetName() == bookName)
+		{
+			iter->StartCiculation(date);
+			iter->SetNewOwner();
+		}
+	}
 }
 
 void Library::PassOn(string bookName, Date date)
@@ -59,10 +68,14 @@ void Library::PassOn(string bookName, Date date)
 				iter = _bookListArchived.erase(iter);
 				return;
 			}
-
+			else
+			{
+				iter->GetOwner()->SetRetainTime(iter->GetPreviousPass(date), date);
 				iter->SetNewOwner();
-		}
+			}
 
+		}
+		updateWaitTimes(*iter, date);
 		++iter;
 	}
 }
@@ -73,4 +86,9 @@ void Library::AddBook(string bookName)
 	tempBook.PopulateQueue(_employeeList);
 	
 
+}
+
+void Library::updateWaitTimes(Book book, Date date)
+{
+	book.updateWaitTimes(date);
 }

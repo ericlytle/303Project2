@@ -15,6 +15,7 @@ public:
 	void Push(Employee* employee) { _employees.push_back(employee); };
 	void SetPriority();
 	void DisplayList();
+	void updateWaitTimes(Date previousPass, Date date);
 private:
 	void insertionSort(list<Employee*> & employeeList);
 	list<Employee*> _employees;
@@ -78,4 +79,14 @@ void EmployeeQueue::insertionSort(list<Employee*> & employeeList)
 	}
 
 	employeeList = temp;
+}
+
+void EmployeeQueue::updateWaitTimes(Date previousPass, Date date)
+{
+	list<Employee*>::iterator iter = _employees.begin();
+	while (iter != _employees.end())
+	{
+		(*iter)->SetWaitTime(previousPass, date);
+		++iter;
+	}
 }

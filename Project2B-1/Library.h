@@ -21,3 +21,23 @@ private:
 	list<Book>  _bookListArchived;
 
 };
+
+Library()
+{
+	
+}
+
+void AddEmployee(string employeeName)
+{
+	;
+}
+
+void CirculateBook(string bookName, Date date)
+{
+	;
+}
+
+void PassOn(string bookName, Date date)
+{
+	;
+}

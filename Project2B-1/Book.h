@@ -27,6 +27,7 @@ private:
 	Date _circulationStop;
 	EmployeeQueue _waitingForThisBook; //pointers
 	string _name;
+	
 };
 
 Book::Book()

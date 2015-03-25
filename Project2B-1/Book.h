@@ -49,6 +49,7 @@ Book::Book(string name)
 void Book::AddtoQueue(Employee* employee)
 {
 	_waitingForThisBook.Push(employee);
+	_waitingForThisBook.SetPriority();
 }
 
 void Book::PopulateQueue(list<Employee>& employeeList)
@@ -58,6 +59,7 @@ void Book::PopulateQueue(list<Employee>& employeeList)
 	{
 		_waitingForThisBook.Push(&(*employeeIterator));
 	}
+	_waitingForThisBook.SetPriority();
 }
 
 void Book::Archive()
@@ -104,4 +106,5 @@ void Book::StartCiculation(Date date)
 void Book::updateWaitTimes(Date date)
 {
 	_waitingForThisBook.updateWaitTimes(_previousPass ,date);
+	_waitingForThisBook.SetPriority();
 }

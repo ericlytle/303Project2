@@ -22,6 +22,7 @@ public:
 	void PopulateQueue(list<Employee> employeeList); //only to be called by addBook in library
 	Employee* GetOwner();
 	void SetNewOwner(Employee* NewOwner);
+	Date GetPreviousPass(Date newPass);
 private:
 	Date _previousPass;
 	bool _isArchived;
@@ -29,6 +30,7 @@ private:
 	Date _circulationStop;
 	EmployeeQueue _waitingForThisBook; //pointers
 	string _name;
+	Employee* _Owner;
 };
 
 Book::Book()

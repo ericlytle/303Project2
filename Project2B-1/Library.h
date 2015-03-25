@@ -30,11 +30,11 @@ Library::Library()
 
 void Library::AddEmployee(string employeeName)
 {
-	Employee tempEmployee(employeeName);
-	_employeeList.push_back(tempEmployee);
+	Employee* tempEmployee = new Employee(employeeName);
+	_employeeList.push_back(*tempEmployee);
 	list<Book>::iterator iter = _bookListActive.begin();
 	while (iter != _bookListActive.end()){
-		iter->AddtoQueue(&tempEmployee);
+		iter->AddtoQueue(tempEmployee);
 		++iter;
 	}
 	

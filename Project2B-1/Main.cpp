@@ -7,6 +7,6 @@ int main(){
 	library.AddEmployee("Adam");
 	library.AddEmployee("Sam");
 	library.AddEmployee("Ann");
-
+	system("pause");
 
 }

@@ -18,16 +18,17 @@ public:
 	void CirculationStart(Date date);
 	void CirculationStop(Date date);
 	void Archive();
-	void PassOn();
 	void AddtoQueue(Employee* employee); //called by addEmployee in library
 	void PopulateQueue(list<Employee> employeeList); //only to be called by addBook in library
+	Employee* GetOwner();
+	void SetNewOwner(Employee* NewOwner);
 private:
+	Date _previousPass;
 	bool _isArchived;
 	Date _circulationStart;
 	Date _circulationStop;
 	EmployeeQueue _waitingForThisBook; //pointers
 	string _name;
-	
 };
 
 Book::Book()
@@ -64,4 +65,26 @@ void Book::PopulateQueue(list<Employee> employeeList)
 void Book::Archive()
 {
 	_isArchived = true;
+}
+
+bool Book::IsArchived()
+{
+	return _isArchived;
+}
+
+Employee* Book::GetOwner()
+{
+	return _Owner;
+}
+
+void Book::SetNewOwner(Employee* NewOnwer)
+{
+	_Owner = _waitingForThisBook.Pop(); //returns top, then removes. 
+}
+
+Date Book::GetPreviousPass(Date newPass)
+{
+	Date temp = _previousPass;
+	_previousPass = newPass;
+	return temp;
 }

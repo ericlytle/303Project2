@@ -22,9 +22,9 @@ private:
 
 };
 
-Library()
+Library::Library()
 {
-	
+	;
 }
 
 void AddEmployee(string employeeName)
@@ -37,7 +37,17 @@ void CirculateBook(string bookName, Date date)
 	;
 }
 
-void PassOn(string bookName, Date date)
+void Library::PassOn(string bookName, Date date)
 {
-	;
+	list<Book>::iterator iter = _bookListActive.begin();
+
+	while (iter != _bookListActive.end())
+	{
+		if (iter->GetName() == bookName)
+		{
+			iter->SetNewOwner();
+		}
+
+		++iter;
+	}
 }

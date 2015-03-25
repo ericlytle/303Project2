@@ -15,7 +15,7 @@ public:
 	string GetName();
 	void Archive();
 	void AddtoQueue(Employee* employee); //called by addEmployee in library
-	void PopulateQueue(list<Employee> employeeList); //only to be called by addBook in library
+	void PopulateQueue(list<Employee>& employeeList); //only to be called by addBook in library
 	Employee* GetOwner();
 	void SetNewOwner();
 	Date GetPreviousPass(Date newPass);
@@ -49,7 +49,7 @@ void Book::AddtoQueue(Employee* employee)
 	_waitingForThisBook.Push(employee);
 }
 
-void Book::PopulateQueue(list<Employee> employeeList)
+void Book::PopulateQueue(list<Employee>& employeeList)
 {
 	list<Employee>::iterator employeeIterator = employeeList.begin();
 	while (employeeIterator != employeeList.end())
@@ -86,4 +86,9 @@ Date Book::GetPreviousPass(Date newPass)
 	Date temp = _previousPass;
 	_previousPass = newPass;
 	return temp;
+}
+
+string Book::GetName()
+{
+	return _name;
 }

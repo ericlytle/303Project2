@@ -30,7 +30,14 @@ Library::Library()
 
 void Library::AddEmployee(string employeeName)
 {
-	_employeeList.push_back(Employee(employeeName));
+	Employee tempEmployee(employeeName);
+	_employeeList.push_back(tempEmployee);
+	list<Book>::iterator iter = _bookListActive.begin();
+	while (iter != _bookListActive.end()){
+		iter->AddtoQueue(&tempEmployee);
+		++iter;
+	}
+	
 }
 
 void CirculateBook(string bookName, Date date)
@@ -63,4 +70,7 @@ void Library::AddBook(string bookName)
 {
 	Book tempBook(bookName);
 	_bookListActive.push_back(tempBook);
+	tempBook.PopulateQueue(_employeeList);
+	
+
 }

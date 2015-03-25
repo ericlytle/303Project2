@@ -37,7 +37,7 @@ Employee::Employee()
 {
 	Date startDate(STARTDATE, DateFormat::US);
 	_waitTime = _retainTime = startDate;
-	_name = "";
+	_name = "poop";
 }
 
 Employee::Employee(string name)

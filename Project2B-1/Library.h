@@ -51,6 +51,7 @@ void Library::CirculateBook(string bookName, Date date)
 			iter->StartCiculation(date);
 			iter->SetNewOwner();
 		}
+		++iter;
 	}
 }
 

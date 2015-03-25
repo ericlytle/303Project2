@@ -23,9 +23,10 @@ private:
 
 Employee* EmployeeQueue::Pop() 
 {
-	list<Employee*>::iterator temp = _employees.begin(); //a pointer to a pointer
+	//list<Employee*>::iterator temp = _employees.begin(); //a pointer to a pointer
+	Employee* temp = _employees.front();
 	_employees.pop_front();
-	return *temp; //a pointer to the orioginal list
+	return temp; //a pointer to the orioginal list
 }
 
 void EmployeeQueue::SetPriority()

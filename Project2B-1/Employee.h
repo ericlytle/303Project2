@@ -28,6 +28,7 @@ public:
 	bool operator >=(const Employee& other) const;
 
 private:
+	int SubtractDate(Date first, Date second);
 	Date _retainTime;  //this date starts at 1-1-2000, will increase using .add_days(dateReturned - dateRecieved)
 	Date _waitTime;		//this date starts at 1-1-2000
 	string _name;
@@ -69,12 +70,12 @@ void Employee::SetName(string name)
 
 void Employee::SetRetainTime(Date dateReceived, Date dateReturned) //always smallerdate, largerDate
 {
-	_retainTime.add_days(dateReturned - dateReceived);
+	_retainTime.add_days(SubtractDate(dateReceived,dateReturned));
 }
 
 void Employee::SetWaitTime(Date passed, Date passedNext)
 {
-	_waitTime.add_days(passedNext - passed);
+	_waitTime.add_days(SubtractDate(passed,passedNext));
 }
 
 bool Employee::operator <(const Employee& other) const
@@ -106,4 +107,11 @@ bool Employee::operator <=(const Employee& other) const
 bool Employee::operator >=(const Employee& other) const
 {
 	return this->operator>(other) || this->operator==(other);
+}
+
+int Employee::SubtractDate(Date first, Date second)
+{
+	if (first > second)
+		return first - second;
+	return second - first;
 }

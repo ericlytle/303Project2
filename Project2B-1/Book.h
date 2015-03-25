@@ -32,6 +32,7 @@ Book::Book()
 	_isArchived = false;
 	_previousPass = Date(2100, 1, 1);
 	_name = "";
+	_Owner = NULL;
 }
 
 Book::Book(string name)
@@ -39,6 +40,7 @@ Book::Book(string name)
 	_isArchived = false;
 	_name = name;
 	_previousPass = Date(2100, 1, 1);
+	_Owner = NULL;
 }
 
 

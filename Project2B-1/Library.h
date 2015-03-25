@@ -14,6 +14,7 @@ public:
 	void AddEmployee(string employeeName);
 	void CirculateBook(string bookName, Date date);
 	void PassOn(string bookName, Date date);
+	void AddBook(string bookName);
 
 private:
 	list<Employee> _employeeList;
@@ -27,9 +28,9 @@ Library::Library()
 	;
 }
 
-void AddEmployee(string employeeName)
+void Library::AddEmployee(string employeeName)
 {
-	;
+	_employeeList.push_back(Employee(employeeName));
 }
 
 void CirculateBook(string bookName, Date date)
@@ -45,9 +46,21 @@ void Library::PassOn(string bookName, Date date)
 	{
 		if (iter->GetName() == bookName)
 		{
-			iter->SetNewOwner();
+			if (iter->IsArchived())
+			{
+				_bookListArchived.push_back(*iter);
+				iter = _bookListArchived.erase(iter);
+				return;
+			}
+
+				iter->SetNewOwner();
 		}
 
 		++iter;
 	}
+}
+void Library::AddBook(string bookName)
+{
+	Book tempBook(bookName);
+	_bookListActive.push_back(tempBook);
 }

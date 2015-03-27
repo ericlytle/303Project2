@@ -23,10 +23,9 @@ private:
 
 Employee* EmployeeQueue::Pop() 
 {
-	//list<Employee*>::iterator temp = _employees.begin(); //a pointer to a pointer
 	Employee* temp = _employees.front();
 	_employees.pop_front();
-	return temp; //a pointer to the orioginal list
+	return temp;
 }
 
 void EmployeeQueue::SetPriority()
@@ -49,6 +48,7 @@ void EmployeeQueue::DisplayList()
 
 void EmployeeQueue::insertionSort(list<Employee*> & employeeList)
 {
+	if (employeeList.empty()) { return; }
 	list<Employee*> temp;
 	list<Employee*>::iterator outer = employeeList.begin();
 	bool insertionneeded = false;

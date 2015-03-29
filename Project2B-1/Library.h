@@ -34,7 +34,8 @@ void Library::AddEmployee(string employeeName)
 	Employee* tempEmployee = new Employee(employeeName);
 	_employeeList.push_back(*tempEmployee);
 	list<Book>::iterator iter = _bookListActive.begin();
-	while (iter != _bookListActive.end()){
+	while (iter != _bookListActive.end())
+	{
 		iter->AddtoQueue(tempEmployee);
 		++iter;
 	}
@@ -74,7 +75,6 @@ void Library::PassOn(string bookName, Date date)
 				iter->GetOwner()->SetRetainTime(iter->GetPreviousPass(date), date);
 				iter->SetNewOwner();
 			}
-
 		}
 		updateWaitTimes(*iter, date);
 		++iter;

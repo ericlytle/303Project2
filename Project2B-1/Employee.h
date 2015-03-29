@@ -68,7 +68,7 @@ void Employee::SetName(string name)
 	_name = name;
 }
 
-void Employee::SetRetainTime(Date dateReceived, Date dateReturned) //always smallerdate, largerDate
+void Employee::SetRetainTime(Date dateReceived, Date dateReturned)
 {
 	_retainTime.add_days(SubtractDate(dateReceived,dateReturned));
 }

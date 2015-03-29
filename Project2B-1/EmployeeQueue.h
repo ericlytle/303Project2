@@ -31,10 +31,9 @@ Employee* EmployeeQueue::Pop()
 void EmployeeQueue::SetPriority()
 {
 	insertionSort(_employees);
-
 }
 
-void EmployeeQueue::DisplayList()
+void EmployeeQueue::DisplayList() //debugging only, remove for final
 {
 	list<Employee*>::iterator temp = _employees.begin();
 
@@ -43,7 +42,6 @@ void EmployeeQueue::DisplayList()
 		cout << (**temp).GetName() << endl;
 		++temp;
 	}
-
 }
 
 void EmployeeQueue::insertionSort(list<Employee*> & employeeList)
@@ -70,7 +68,6 @@ void EmployeeQueue::insertionSort(list<Employee*> & employeeList)
 				insertionneeded = true;
 				break;
 			}
-
 		}
 		if (insertionneeded == false)
 		{
@@ -79,7 +76,6 @@ void EmployeeQueue::insertionSort(list<Employee*> & employeeList)
 		}
 		outer = employeeList.erase(outer);
 	}
-
 	employeeList = temp;
 }
 

@@ -14,8 +14,9 @@ public:
 	Employee* Pop();
 	void Push(Employee* employee) { _employees.push_back(employee); };
 	void SetPriority();
-	void DisplayList();
 	void updateWaitTimes(Date previousPass, Date date);
+	list<Employee*>::iterator Begin();
+	list<Employee*>::iterator End();
 private:
 	void insertionSort(list<Employee*> & employeeList);
 	list<Employee*> _employees;
@@ -31,17 +32,6 @@ Employee* EmployeeQueue::Pop()
 void EmployeeQueue::SetPriority()
 {
 	insertionSort(_employees);
-}
-
-void EmployeeQueue::DisplayList() //debugging only, remove for final
-{
-	list<Employee*>::iterator temp = _employees.begin();
-
-	while (temp != _employees.end())
-	{
-		cout << (**temp).GetName() << endl;
-		++temp;
-	}
 }
 
 void EmployeeQueue::insertionSort(list<Employee*> & employeeList)
@@ -65,18 +55,20 @@ void EmployeeQueue::insertionSort(list<Employee*> & employeeList)
 			if (**outer >= **inner)
 			{
 				temp.insert(inner, *outer);
+				
 				insertionneeded = true;
 				break;
 			}
 		}
-		if (insertionneeded == false)
+		if (!insertionneeded)
 		{
 			temp.push_front(*outer);
-
 		}
 		outer = employeeList.erase(outer);
 	}
 	employeeList = temp;
+
+
 }
 
 void EmployeeQueue::updateWaitTimes(Date previousPass, Date date)
@@ -87,4 +79,16 @@ void EmployeeQueue::updateWaitTimes(Date previousPass, Date date)
 		(*iter)->SetWaitTime(previousPass, date);
 		++iter;
 	}
+}
+
+list<Employee*>::iterator EmployeeQueue::Begin()
+{
+	list<Employee*>::iterator iter = _employees.begin();
+	return iter;
+}
+
+list<Employee*>::iterator EmployeeQueue::End()
+{
+	list<Employee*>::iterator iter = _employees.end();
+	return iter;
 }

@@ -21,6 +21,7 @@ public:
 	void StartCiculation(Date date);
 	Date GetPreviousPass(Date newPass);
 	void updateWaitTimes(Date date);
+	void SetBookPriority();
 private:
 	Date _previousPass;
 	bool _isArchived;
@@ -32,7 +33,7 @@ private:
 Book::Book()
 {
 	_isArchived = false;
-	_previousPass = Date(2100, 1, 1);
+	_previousPass = Date("1-1-2000",DateFormat::US);
 	_name = "";
 	_Owner = NULL;
 }
@@ -41,7 +42,7 @@ Book::Book(string name)
 {
 	_isArchived = false;
 	_name = name;
-	_previousPass = Date(2100, 1, 1);
+	_previousPass = Date("1-1-2000", DateFormat::US);
 	_Owner = NULL;
 }
 
@@ -49,7 +50,8 @@ Book::Book(string name)
 void Book::AddtoQueue(Employee* employee)
 {
 	_waitingForThisBook.Push(employee);
-	_waitingForThisBook.SetPriority();
+	if (_Owner != NULL)
+		_waitingForThisBook.SetPriority();
 }
 
 void Book::PopulateQueue(list<Employee>& employeeList)
@@ -81,7 +83,7 @@ void Book::SetNewOwner()
 {
 	if (!_waitingForThisBook.IsEmpty())
 		_Owner = _waitingForThisBook.Pop(); //returns top, then removes. 
-	else
+	if (_waitingForThisBook.IsEmpty())
 		Archive();
 }
 
@@ -99,12 +101,21 @@ string Book::GetName()
 
 void Book::StartCiculation(Date date)
 {
-	_previousPass = date;
-	
+	_previousPass = date;	
 }
 
 void Book::updateWaitTimes(Date date)
 {
-	_waitingForThisBook.updateWaitTimes(_previousPass ,date);
+	list<Employee*>::iterator iter = _waitingForThisBook.Begin();
+	while (iter != _waitingForThisBook.End())
+	{
+		(*iter)->SetWaitTime(_previousPass, date);
+		++iter;
+	}
+	_waitingForThisBook.SetPriority();
+}
+
+void Book::SetBookPriority()
+{
 	_waitingForThisBook.SetPriority();
 }

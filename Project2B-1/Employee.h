@@ -1,12 +1,12 @@
 
 
 #pragma once
-
+#include <iostream>
 #include "Date.h"
 
 using namespace std;
 
-const string STARTDATE = "1-1-2000";
+const string STARTDATE = "1-1-2012";
 
 class Employee
 {

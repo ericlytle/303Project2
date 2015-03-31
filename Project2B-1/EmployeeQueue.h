@@ -11,9 +11,9 @@ class EmployeeQueue
 public:
 	EmployeeQueue() { ; };
 	bool IsEmpty() { return _employees.empty(); }
-	Employee* Pop();
+	Employee* Pop(); //Search for largest member, return it, delete it. 
 	void Push(Employee* employee) { _employees.push_back(employee); };
-	void SetPriority();
+	void SetPriority();  
 	void updateWaitTimes(Date previousPass, Date date);
 	list<Employee*>::iterator Begin();
 	list<Employee*>::iterator End();

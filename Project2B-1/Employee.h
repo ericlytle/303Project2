@@ -13,12 +13,13 @@ class Employee
 public:
 	Employee();
 	Employee(string name);
-	Date GetRetainTime();
-	Date GetWaitTime();
+	int GetRetainTime();
+	int GetWaitTime();
 	string GetName();
 	void SetName(string name);
 	void SetRetainTime(Date dateReceived, Date dateReturned);
-	void SetWaitTime(Date passed, Date passedNext);
+	void SetWaitTime(Date circStart, Date passedNext);
+	const int Priority() const;
 
 	bool operator <(const Employee& other) const;
 	bool operator >(const Employee& other) const;
@@ -29,31 +30,35 @@ public:
 
 private:
 	int SubtractDate(Date first, Date second);
-	Date _retainTime;  //this date starts at 1-1-2000, will increase using .add_days(dateReturned - dateRecieved)
-	Date _waitTime;		//this date starts at 1-1-2000
+	//Date _retainTime;  //this date starts at 1-1-2000, will increase using .add_days(dateReturned - dateRecieved)
+	//Date _waitTime;		//this date starts at 1-1-2000
+	int _waitTime;
+	int _retainTime;
 	string _name;
 };
 
 Employee::Employee()
 {
-	Date startDate(STARTDATE, DateFormat::US);
-	_waitTime = _retainTime = startDate;
+	//Date startDate(STARTDATE, DateFormat::US);
+	//_waitTime = _retainTime = startDate;
+	_waitTime = _retainTime;
 	_name = "";
 }
 
 Employee::Employee(string name)
 {
-	Date startDate(STARTDATE, DateFormat::US);
-	_waitTime = _retainTime = startDate;
+	//Date startDate(STARTDATE, DateFormat::US);
+	//_waitTime = _retainTime = startDate;
+	_waitTime = _retainTime;
 	_name = name;
 }
 
-Date Employee::GetRetainTime()
+int Employee::GetRetainTime()
 {
 	return _retainTime;
 }
 
-Date Employee::GetWaitTime()
+int Employee::GetWaitTime()
 {
 	return _waitTime;
 }
@@ -68,14 +73,14 @@ void Employee::SetName(string name)
 	_name = name;
 }
 
-void Employee::SetRetainTime(Date dateReceived, Date dateReturned)
+void Employee::SetRetainTime(Date circStart, Date dateReturned)
 {
-	_retainTime.add_days(SubtractDate(dateReceived,dateReturned));
+	_retainTime += SubtractDate(circStart,dateReturned);
 }
 
-void Employee::SetWaitTime(Date passed, Date passedNext)
+void Employee::SetWaitTime(Date circStart, Date passedNext)
 {
-	_waitTime.add_days(SubtractDate(passed,passedNext));
+	_waitTime += SubtractDate(circStart, passedNext);
 }
 
 bool Employee::operator <(const Employee& other) const
@@ -90,23 +95,23 @@ bool Employee::operator <(const Employee& other) const
 }
 bool Employee::operator >(const Employee& other) const
 {
-	return other < *this;
+	return other.Priority() < (*this).Priority();
 }
 bool Employee::operator ==(const Employee& other) const
 {
-	return ((_waitTime == other._waitTime) && (_retainTime == other._retainTime));
+	return other.Priority() == Priority();
 }
 bool Employee::operator !=(const Employee& other) const
 {
-	return ((_waitTime != other._waitTime) || (_retainTime != other._retainTime));
+	return other.Priority() != Priority();
 }
 bool Employee::operator <=(const Employee& other) const
 {
-	return this->operator<(other) || this->operator==(other);
+	return other.Priority() <= Priority();
 }
 bool Employee::operator >=(const Employee& other) const
 {
-	return this->operator>(other) || this->operator==(other);
+	return other.Priority() >= Priority();
 }
 
 int Employee::SubtractDate(Date first, Date second)
@@ -114,4 +119,9 @@ int Employee::SubtractDate(Date first, Date second)
 	if (first > second)
 		return first - second;
 	return second - first;
+}
+
+const int Employee::Priority() const
+{
+	return _waitTime > _retainTime ? _waitTime - _retainTime : 0;
 }

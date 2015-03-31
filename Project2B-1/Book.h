@@ -28,6 +28,7 @@ private:
 	EmployeeQueue _waitingForThisBook; //pointers
 	string _name;
 	Employee* _Owner;
+	Date _circulationDate;
 };
 
 Book::Book()

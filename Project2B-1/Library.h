@@ -17,10 +17,10 @@ public:
 	void AddBook(string bookName);
 
 private:
-	void updateWaitTimes(Book & book, Date date);
 	list<Employee> _employeeList;
 	list<Book> _bookListActive;
 	list<Book>  _bookListArchived;
+	void archiveBook(Book& book, list<Book>::iterator& iter);
 
 };
 
@@ -51,7 +51,7 @@ void Library::CirculateBook(string bookName, Date date)
 		if (iter->GetName() == bookName)
 		{
 			iter->StartCiculation(date);
-			iter->SetNewOwner();
+			iter->SetNewOwner(date, date);
 		}
 		++iter;
 	}
@@ -59,40 +59,22 @@ void Library::CirculateBook(string bookName, Date date)
 
 void Library::PassOn(string bookName, Date date)
 {
-	list<Book>::iterator iter = _bookListActive.begin();
-	
-	
+	list<Book>::iterator iter = _bookListActive.begin();	
 	while (iter != _bookListActive.end())
 	{
-		
-		bool setNewOwner = false;
 		if (iter->GetName() == bookName)
 		{
-			if (iter->IsArchived())
+			if (iter->IsEmpty())
 			{
 				iter->GetOwner()->SetRetainTime(iter->GetPreviousPass(date), date);
-				_bookListArchived.push_back(*iter);
-				iter = _bookListActive.erase(iter);
-				while (iter != _bookListActive.end())
-				{
-					iter->SetBookPriority();
-					++iter;
-				}
+				archiveBook(*iter, iter);
 				return;
 			}
 			else
 			{
-				setNewOwner = true;
-				updateWaitTimes(*iter, date);
 				iter->GetOwner()->SetRetainTime(iter->GetPreviousPass(date), date);
-				//iter->SetBookPriority();
-				//iter->SetNewOwner();
+				iter->SetNewOwner(iter->GetCirculationDate(),date);
 			}
-		}
-		iter->SetBookPriority();
-		if (setNewOwner)
-		{
-			iter->SetNewOwner();
 		}
 		++iter;
 	}
@@ -104,8 +86,9 @@ void Library::AddBook(string bookName)
 	tempBook.PopulateQueue(_employeeList);
 }
 
-void Library::updateWaitTimes(Book &book, Date date)
+void Library::archiveBook(Book& book, list<Book>::iterator& iter)
 {
-	book.updateWaitTimes(date);
+	iter->Archive();
+	_bookListArchived.push_back(book);
+	_bookListActive.erase(iter);
 }
-

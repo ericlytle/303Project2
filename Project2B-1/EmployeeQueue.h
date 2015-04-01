@@ -11,72 +11,39 @@ class EmployeeQueue
 public:
 	EmployeeQueue() { ; };
 	bool IsEmpty() { return _employees.empty(); }
-	Employee* Pop(); //Search for largest member, return it, delete it. 
-	void Push(Employee* employee) { _employees.push_back(employee); };
-	void SetPriority();  
-	void updateWaitTimes(Date previousPass, Date date);
+	Employee* Pop(); 
+	void Push(Employee* employee) { _employees.push_back(employee); }; 
+	void updateWaitTimes(Date currentDate, Date circulationDate);
 	list<Employee*>::iterator Begin();
 	list<Employee*>::iterator End();
 private:
-	void insertionSort(list<Employee*> & employeeList);
 	list<Employee*> _employees;
 };
 
 Employee* EmployeeQueue::Pop() 
 {
-	Employee* temp = _employees.front();
-	_employees.pop_front();
-	return temp;
-}
-
-void EmployeeQueue::SetPriority()
-{
-	insertionSort(_employees);
-}
-
-void EmployeeQueue::insertionSort(list<Employee*> & employeeList)
-{
-	if (employeeList.empty()) { return; }
-
-	list<Employee*> temp;
-	list<Employee*>::iterator outer = employeeList.begin();
-	bool insertionneeded = false;
-
-	temp.push_back(*outer);
-	outer = employeeList.erase(outer);
-
-
-	list<Employee*>::iterator inner = temp.begin();
-	while (outer != employeeList.end())
+	Employee * topEmployee = _employees.front();
+	list<Employee*>::iterator iter = _employees.begin(), tempIter = _employees.begin();
+	++iter;
+	for (iter; iter != _employees.end(); ++iter)
 	{
-		insertionneeded = false;
-		for (inner = temp.begin(); inner != temp.end(); ++inner)
+		if (topEmployee->Priority() < (*iter)->Priority())
 		{
-			if (**outer >= **inner)
-			{
-				temp.insert(inner, *outer);
-				
-				insertionneeded = true;
-				break;
-			}
+			topEmployee = *iter;
+			tempIter = iter;
 		}
-		if (!insertionneeded)
-		{
-			temp.push_front(*outer);
-		}
-		outer = employeeList.erase(outer);
-	}
-	employeeList = temp;
-
+	}	
+	_employees.erase(tempIter);
+	return topEmployee;
 
 }
 
-void EmployeeQueue::updateWaitTimes(Date previousPass, Date date)
+void EmployeeQueue::updateWaitTimes(Date currentDate, Date circulationDate)
 {
 	list<Employee*>::iterator iter = _employees.begin();
 	while (iter != _employees.end())
 	{
-		(*iter)->SetWaitTime(previousPass, date);
+		(*iter)->SetWaitTime(currentDate, circulationDate);
 		++iter;
 	}
 }

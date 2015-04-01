@@ -17,6 +17,7 @@
     <ClInclude Include="Employee.h" />
     <ClInclude Include="EmployeeQueue.h" />
     <ClInclude Include="Library.h" />
+    <ClInclude Include="PriorityQueue.h" />
     <ClInclude Include="StringTokenizer.h" />
   </ItemGroup>
   <ItemGroup>

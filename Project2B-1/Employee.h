@@ -18,6 +18,14 @@ public:
 	void SetRetainTime(Date dateReceived, Date dateReturned);
 	void SetWaitTime(Date circStart, Date passedNext);
 	const int Priority() const;
+	
+	// compares Priority
+	const bool operator==(const Employee other) const;
+	const bool operator!=(const Employee other) const;
+	const bool operator<(const Employee other) const;
+	const bool operator>(const Employee other) const;
+	const bool operator<=(const Employee other) const;
+	const bool operator>=(const Employee other) const;
 
 private:
 	int SubtractDate(Date first, Date second);	
@@ -78,4 +86,34 @@ int Employee::SubtractDate(Date first, Date second)
 const int Employee::Priority() const 
 {
 	return _waitTime - _retainTime;
+}
+
+const bool Employee::operator==(const Employee other) const
+{
+	return this->Priority() == other.Priority();
+}
+
+const bool Employee::operator!=(const Employee other) const
+{
+	return this->Priority() != other.Priority();
+}
+
+const bool Employee::operator<(const Employee other) const
+{
+	return this->Priority() < other.Priority();
+}
+
+const bool Employee::operator>(const Employee other) const
+{
+	return this->Priority() > other.Priority();
+}
+
+const bool Employee::operator<=(const Employee other) const
+{
+	return this->Priority() <= other.Priority();
+}
+
+const bool Employee::operator>=(const Employee other) const
+{
+	return this->Priority() >= other.Priority();
 }

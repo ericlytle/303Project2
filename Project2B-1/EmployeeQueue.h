@@ -11,6 +11,7 @@ public:
 	bool IsEmpty() { return _employees.empty(); }
 	Employee* Pop(); 
 	void Push(Employee* employee) { _employees.push_back(employee); }; 
+
 private:
 	list<Employee*> _employees;
 };

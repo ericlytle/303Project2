@@ -12,7 +12,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Book.h" />
-    <ClInclude Include="BookList.h" />
     <ClInclude Include="Date.h" />
     <ClInclude Include="Employee.h" />
     <ClInclude Include="EmployeeQueue.h" />

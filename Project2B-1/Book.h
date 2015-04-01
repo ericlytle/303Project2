@@ -1,8 +1,9 @@
 #pragma once
 
 #include "Date.h"
-#include "EmployeeQueue.h"
+//#include "EmployeeQueue.h"
 #include "Employee.h"
+#include "PriorityQueue.h"
 
 using namespace std;
 
@@ -27,7 +28,8 @@ private:
 	Date _previousPass;
 	Date _circulationDate;
 	bool _isArchived;
-	EmployeeQueue _waitingForThisBook; //pointers
+	// EmployeeQueue _waitingForThisBook; //pointers
+	PriorityQueue<Employee*> _waiting;
 	string _name;
 	Employee* _Owner;
 
@@ -50,7 +52,8 @@ Book::Book(string name)
 
 void Book::AddtoQueue(Employee* employee)
 {
-	_waitingForThisBook.Push(employee);
+	//_waitingForThisBook.Push(employee);
+	_waiting.Push(employee);
 }
 
 void Book::PopulateQueue(list<Employee>& employeeList)
@@ -58,13 +61,14 @@ void Book::PopulateQueue(list<Employee>& employeeList)
 	list<Employee>::iterator employeeIterator = employeeList.begin();
 	while (employeeIterator != employeeList.end())
 	{
-		_waitingForThisBook.Push(&(*employeeIterator));
+		//_waitingForThisBook.Push(&(*employeeIterator));
+		_waiting.Push(&(*employeeIterator));
 	}
 }
 
 bool Book::IsEmpty()
 {
-	return _waitingForThisBook.IsEmpty();
+	return _waiting.IsEmpty(); //_waitingForThisBook.IsEmpty();
 }
 
 void Book::Archive()
@@ -84,9 +88,16 @@ Employee* Book::GetOwner()
 
 void Book::SetNewOwner(Date dateCirc, Date dateReceived)
 {
-	if (!_waitingForThisBook.IsEmpty())
-		_Owner = _waitingForThisBook.Pop(); 
+	//if (!_waitingForThisBook.IsEmpty())
+	//{
+	//	_Owner = _waitingForThisBook.Pop();
+	//	_Owner->SetWaitTime(dateCirc, dateReceived);
+	//}
+	if (!_waiting.IsEmpty())
+	{
+		_Owner = _waiting.Pop();
 		_Owner->SetWaitTime(dateCirc, dateReceived);
+	}
 
 }
 

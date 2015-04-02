@@ -5,6 +5,10 @@
 // PriorityQueue class
 // Uses a list to implement a priority queue.
 
+// Assumptions:
+// 1. Pop() assumes items can be compared using the < operator.
+// 2. Pop() assumes list is non-empty.
+
 template <typename T>
 class PriorityQueue
 {
@@ -17,7 +21,7 @@ private:
 	list<T> _list;
 };
 
-// Pop() searches for largest memeber, removes from list, and returns it
+// Pop() searches for largest memeber, removes from list, and returns it.
 template <typename T>
 T PriorityQueue<T>::Pop()
 {

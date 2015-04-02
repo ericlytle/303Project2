@@ -1,3 +1,7 @@
+// THIS CLASS IS DEPRICATED
+// REMOVE ANY REFERENCES IN THIS SOLUTION
+// SHOULD USE PriorityQueue CLASS INSTEAD
+
 #pragma once
 #include "Employee.h"
 #include <list>

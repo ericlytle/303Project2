@@ -2,12 +2,10 @@
 
 #include <list>
 
-// PriorityQueue class
-// Uses a list to implement a priority queue.
-
-// Assumptions:
-// 1. Pop() assumes items can be compared using the < operator.
-// 2. Pop() assumes list is non-empty.
+// Name: PriorityQueue
+// Description: Uses a list to implement a priority queue class.
+// Assumption 1: Pop() method assumes that items can be compared using the < operator.
+// Assumption 2: Pop() method assumes that the list is non-empty.
 
 template <typename T>
 class PriorityQueue
@@ -27,15 +25,15 @@ T PriorityQueue<T>::Pop()
 {
 	T top = _list.front();
 	list<T>::iterator iter = _list.begin();
-	list<T>::iterator index = _list.begin();
+	list<T>::iterator mark = _list.begin();
 	for (iter; iter != _list.end(); ++iter)
 	{
 		if (*top < **iter)
 		{
 			top = *iter;
-			index = iter;
+			mark = iter;
 		}
 	}
-	_list.erase(index);
+	_list.erase(mark);
 	return top;
 }

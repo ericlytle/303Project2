@@ -28,10 +28,21 @@ T PriorityQueue<T>::Pop()
 	list<T>::iterator mark = _list.begin();
 	for (iter; iter != _list.end(); ++iter)
 	{
-		if (*top < **iter)
+		if (is_pointer<T>::value == 1)
 		{
-			top = *iter;
-			mark = iter;
+			if (*top < **iter)
+			{
+				top = *iter;
+				mark = iter;
+			}
+		}
+		else
+		{
+			if (top < *iter)
+			{
+				top = *iter;
+				mark = iter;
+			}
 		}
 	}
 	_list.erase(mark);

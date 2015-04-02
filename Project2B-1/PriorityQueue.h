@@ -26,7 +26,7 @@ T PriorityQueue<T>::Pop()
 	list<T>::iterator index = _list.begin();
 	for (iter; iter != _list.end(); ++iter)
 	{
-		if (top < *iter)
+		if (*top < **iter)
 		{
 			top = *iter;
 			index = iter;

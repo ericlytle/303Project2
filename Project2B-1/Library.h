@@ -29,6 +29,8 @@ Library::Library()
 	;
 }
 
+//Creates a new employee, adds them to the main employee list, and adds pointer to the employee
+//in every active books queue.
 void Library::AddEmployee(string employeeName)
 {
 	Employee temp(employeeName);
@@ -43,6 +45,7 @@ void Library::AddEmployee(string employeeName)
 	}	
 }
 
+//Passes a book into library circulation, gives book to highest priority employee in book queue.
 void Library::CirculateBook(string bookName, Date date)
 {
 	list<Book>::iterator iter = _bookListActive.begin();
@@ -57,6 +60,8 @@ void Library::CirculateBook(string bookName, Date date)
 	}
 }
 
+//Updates info of current owner of book and passes book to next owner which is popped from queue, if book queue 
+//is empty, the book is archived and removed from active book list.
 void Library::PassOn(string bookName, Date date)
 {
 	list<Book>::iterator iter = _bookListActive.begin();	
@@ -79,6 +84,7 @@ void Library::PassOn(string bookName, Date date)
 		++iter;
 	}
 }
+
 void Library::AddBook(string bookName)
 {
 	Book tempBook(bookName);
@@ -86,6 +92,7 @@ void Library::AddBook(string bookName)
 	tempBook.PopulateQueue(_employeeList);
 }
 
+//Removes book from active list and places in archived list.
 void Library::archiveBook(Book& book, list<Book>::iterator& iter)
 {
 	iter->Archive();

@@ -24,9 +24,6 @@
     <ClInclude Include="Employee.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="EmployeeQueue.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Book.h">
       <Filter>Header Files</Filter>
     </ClInclude>

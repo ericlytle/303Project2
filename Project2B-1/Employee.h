@@ -76,6 +76,7 @@ void Employee::SetWaitTime(Date circStart, Date passedNext)
 	_waitTime += SubtractDate(circStart, passedNext);
 }
 
+//Ensures smaller date is always subtracted from larger date, returns int of days difference.
 int Employee::SubtractDate(Date first, Date second)
 {
 	if (first > second)
@@ -83,6 +84,7 @@ int Employee::SubtractDate(Date first, Date second)
 	return second - first;
 }
 
+//Returns the priority of each employee.
 const int Employee::Priority() const 
 {
 	return _waitTime - _retainTime;

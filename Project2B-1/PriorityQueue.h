@@ -4,7 +4,8 @@
 
 // Name: PriorityQueue
 // Description: Uses a list to implement a priority queue class.
-// Assumption 1: Pop() method assumes that items can be compared using the < operator.
+// Assumption 1: Assumes items <typename T> are pointers.
+// Assumption 2: Pop() method assumes that the objects that the items <typename T> point to can be compared using the < operator.
 
 template <typename T>
 class PriorityQueue
@@ -22,7 +23,7 @@ private:
 template <typename T>
 T PriorityQueue<T>::Pop()
 {
-	if (_list.empty()){ throw::exception("List is Empty"); }
+	if (_list.empty()) { throw::exception("Priority Queue is Empty"); }
 	T top = _list.front();
 	list<T>::iterator iter = _list.begin();
 	list<T>::iterator mark = _list.begin();

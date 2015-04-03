@@ -71,6 +71,7 @@ bool Book::IsEmpty()
 void Book::Archive()
 {
 	_isArchived = true;
+	_Owner = NULL;
 }
 
 bool Book::IsArchived()

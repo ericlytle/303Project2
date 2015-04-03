@@ -23,7 +23,10 @@ private:
 template <typename T>
 T PriorityQueue<T>::Pop()
 {
-	if (_list.empty()) { throw::exception("Priority Queue is Empty"); }
+	if (_list.empty())
+	{
+		throw std::exception(" Priority Queue is Empty");
+	}
 	T top = _list.front();
 	list<T>::iterator iter = _list.begin();
 	list<T>::iterator mark = _list.begin();

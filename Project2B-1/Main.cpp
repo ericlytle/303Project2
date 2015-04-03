@@ -1,4 +1,5 @@
 #include "Library.h"
+
 int main(){
 	Library library;
 	
@@ -31,6 +32,4 @@ int main(){
 
 	system("pause");
 	return 0;
-
 }
-

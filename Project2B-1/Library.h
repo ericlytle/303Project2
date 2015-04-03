@@ -5,12 +5,10 @@
 #include <string>
 using namespace std;
 
-
-
 class Library
 {
 public:
-	Library();
+	Library(){};
 	void AddEmployee(string employeeName);
 	void CirculateBook(string bookName, Date currentDate);
 	void PassOn(string bookName, Date currentDate);
@@ -21,13 +19,7 @@ private:
 	list<Book> _bookListActive;
 	list<Book>  _bookListArchived;
 	void archiveBook(Book& book, list<Book>::iterator& iter);
-
 };
-
-Library::Library()
-{
-	;
-}
 
 //Creates a new employee, adds them to the main employee list, and adds pointer to the employee
 //in every active books queue.
@@ -36,7 +28,6 @@ void Library::AddEmployee(string employeeName)
 	Employee temp(employeeName);
 	_employeeList.push_back(temp);
 	Employee * tempPtr = &(_employeeList.back());
-
 	list<Book>::iterator iter = _bookListActive.begin();
 	while (iter != _bookListActive.end())
 	{		

@@ -1,5 +1,3 @@
-
-
 #pragma once
 #include "Date.h"
 
@@ -36,7 +34,6 @@ private:
 Employee::Employee()
 {
 	_waitTime = _retainTime = 0;
-	_name = "";
 }
 
 Employee::Employee(string name)

@@ -29,21 +29,20 @@ private:
 	bool _isArchived;
 	PriorityQueue<Employee*> _waiting;
 	string _name;
-	Employee* _Owner;
+	Employee* _owner;
 };
 
 Book::Book()
 {
 	_isArchived = false;
-	_name = "";
-	_Owner = NULL;
+	_owner = NULL;
 }
 
 Book::Book(string name)
 {
 	_isArchived = false;
 	_name = name;
-	_Owner = NULL;
+	_owner = NULL;
 }
 
 void Book::AddtoQueue(Employee* employee)
@@ -58,6 +57,7 @@ void Book::PopulateQueue(list<Employee>& employeeList)
 	while (employeeIterator != employeeList.end())
 	{
 		_waiting.Push(&(*employeeIterator));
+		++employeeIterator;
 	}
 }
 
@@ -69,7 +69,7 @@ bool Book::IsEmpty()
 void Book::Archive()
 {
 	_isArchived = true;
-	_Owner = NULL;
+	_owner = NULL;
 }
 
 bool Book::IsArchived()
@@ -79,7 +79,7 @@ bool Book::IsArchived()
 
 Employee* Book::GetOwner()
 {
-	return _Owner;
+	return _owner;
 }
 
 //Removes priority employee from queue and stores in _Owner variable, sets owners wait time.
@@ -87,8 +87,8 @@ void Book::SetNewOwner(Date dateCirc, Date dateReceived)
 {
 	if (!_waiting.IsEmpty())
 	{
-		_Owner = _waiting.Pop();
-		_Owner->SetWaitTime(dateCirc, dateReceived);
+		_owner = _waiting.Pop();
+		_owner->SetWaitTime(dateCirc, dateReceived);
 	}
 }
 
@@ -116,5 +116,3 @@ Date Book::GetCirculationDate()
 {
 	return _circulationDate;
 }
-
-

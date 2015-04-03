@@ -12,17 +12,17 @@ public:
 	Book();
 	Book(string name);
 	bool IsArchived();
-	string GetName();
-	void Archive();
+	void Archive();	
 	void AddtoQueue(Employee* employee);
 	void PopulateQueue(list<Employee>& employeeList);
-	Employee* GetOwner();
-	void SetNewOwner(Date dateCirc, Date dateReceived);
 	void StartCiculation(Date date);
+	bool IsEmpty();
+	string GetName();
+	Employee* GetOwner();
 	Date GetCirculationDate();
 	Date GetPreviousPass(Date newPass);
+	void SetNewOwner(Date dateCirc, Date dateReceived);
 	void SetBookPriority();
-	bool IsEmpty();
 private:
 	Date _previousPass;
 	Date _circulationDate;
@@ -30,7 +30,6 @@ private:
 	PriorityQueue<Employee*> _waiting;
 	string _name;
 	Employee* _Owner;
-
 };
 
 Book::Book()
@@ -46,7 +45,6 @@ Book::Book(string name)
 	_name = name;
 	_Owner = NULL;
 }
-
 
 void Book::AddtoQueue(Employee* employee)
 {

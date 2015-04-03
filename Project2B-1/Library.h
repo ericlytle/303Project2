@@ -12,8 +12,8 @@ class Library
 public:
 	Library();
 	void AddEmployee(string employeeName);
-	void CirculateBook(string bookName, Date date);
-	void PassOn(string bookName, Date date);
+	void CirculateBook(string bookName, Date currentDate);
+	void PassOn(string bookName, Date currentDate);
 	void AddBook(string bookName);
 
 private:
@@ -46,15 +46,15 @@ void Library::AddEmployee(string employeeName)
 }
 
 //Passes a book into library circulation, gives book to highest priority employee in book queue.
-void Library::CirculateBook(string bookName, Date date)
+void Library::CirculateBook(string bookName, Date currentDate)
 {
 	list<Book>::iterator iter = _bookListActive.begin();
 	while (iter != _bookListActive.end())
 	{
 		if (iter->GetName() == bookName)
 		{
-			iter->StartCiculation(date);
-			iter->SetNewOwner(date, date);
+			iter->StartCiculation(currentDate);
+			iter->SetNewOwner(currentDate, currentDate);
 		}
 		++iter;
 	}
@@ -62,7 +62,7 @@ void Library::CirculateBook(string bookName, Date date)
 
 //Updates info of current owner of book and passes book to next owner which is popped from queue, if book queue 
 //is empty, the book is archived and removed from active book list.
-void Library::PassOn(string bookName, Date date)
+void Library::PassOn(string bookName, Date currentDate)
 {
 	list<Book>::iterator iter = _bookListActive.begin();	
 	while (iter != _bookListActive.end())
@@ -71,14 +71,14 @@ void Library::PassOn(string bookName, Date date)
 		{
 			if (iter->IsEmpty())
 			{
-				iter->GetOwner()->SetRetainTime(iter->GetPreviousPass(date), date);
+				iter->GetOwner()->SetRetainTime(iter->GetPreviousPass(currentDate), currentDate);
 				archiveBook(*iter, iter);
 				return;
 			}
 			else
 			{
-				iter->GetOwner()->SetRetainTime(iter->GetPreviousPass(date), date);
-				iter->SetNewOwner(iter->GetCirculationDate(),date);
+				iter->GetOwner()->SetRetainTime(iter->GetPreviousPass(currentDate), currentDate);
+				iter->SetNewOwner(iter->GetCirculationDate(), currentDate);
 			}
 		}
 		++iter;

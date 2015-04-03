@@ -4,8 +4,8 @@
 
 // Name: PriorityQueue
 // Description: Uses a list to implement a priority queue class.
-// Assumption 1: Assumes items (type T) are pointers.
-// Assumption 2: Pop() method assumes that the objects that the items (type T) point to can be compared using the < operator.
+// Assumption 1: Assumes items <typename T> are pointers.
+// Assumption 2: Pop() method assumes that the objects that the items <typename T> point to can be compared using the < operator.
 
 template <typename T>
 class PriorityQueue
